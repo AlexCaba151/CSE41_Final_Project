@@ -1,0 +1,261 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Portfolio Builder API",
+    "description": "API for managing Themes and Users for a portfolio builder site.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["https", "http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+
+  "tags": [
+    { "name": "Themes", "description": "Operations related to themes" },
+    { "name": "Users", "description": "Operations related to users" }
+  ],
+
+  "paths": {
+    "/api/themes/": {
+      "get": {
+        "tags": ["Themes"],
+        "summary": "Get all themes",
+        "responses": {
+          "200": {
+            "description": "List of all themes",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Theme" }
+            }
+          },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+      "post": {
+        "tags": ["Themes"],
+        "summary": "Create a new theme",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/NewTheme" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Theme successfully created",
+            "schema": { "$ref": "#/definitions/Theme" }
+          },
+          "400": {
+            "description": "Validation failed or duplicate name"
+          },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+
+    "/api/themes/{id}": {
+      "get": {
+        "tags": ["Themes"],
+        "summary": "Get a theme by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Theme found",
+            "schema": { "$ref": "#/definitions/Theme" }
+          },
+          "400": { "description": "Invalid ID format" },
+          "404": { "description": "Theme not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+
+      "put": {
+        "tags": ["Themes"],
+        "summary": "Update an existing theme",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/NewTheme" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Theme updated successfully",
+            "schema": { "$ref": "#/definitions/Theme" }
+          },
+          "400": { "description": "Validation failed or invalid ID" },
+          "404": { "description": "Theme not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+
+      "delete": {
+        "tags": ["Themes"],
+        "summary": "Delete a theme",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "Theme deleted successfully" },
+          "400": { "description": "Invalid ID format" },
+          "404": { "description": "Theme not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+
+    "/api/users/": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "List of all users",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/User" }
+            }
+          },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/NewUser" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfully created",
+            "schema": { "$ref": "#/definitions/User" }
+          },
+          "400": { "description": "Validation failed or duplicate username/email" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+
+    "/api/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get a user by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "schema": { "$ref": "#/definitions/User" }
+          },
+          "400": { "description": "Invalid ID format" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update a user",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/NewUser" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "schema": { "$ref": "#/definitions/User" }
+          },
+          "400": { "description": "Validation failed or invalid ID" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      },
+
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete a user",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "200": { "description": "User deleted successfully" },
+          "400": { "description": "Invalid ID format" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "Theme": {
+      "type": "object",
+      "properties": {
+        "_id": { "type": "string", "example": "65ab12345d014896dcd78910" },
+        "name": { "type": "string", "example": "Dark Mode" },
+        "description": { "type": "string", "example": "A modern dark UI theme" },
+        "primaryColor": { "type": "string", "example": "#121212" },
+        "secondaryColor": { "type": "string", "example": "#BB86FC" },
+        "fontFamily": { "type": "string", "example": "Inter" },
+        "isDark": { "type": "boolean", "example": true }
+      }
+    },
+
+    "NewTheme": {
+      "type": "object",
+      "required": ["name", "primaryColor", "secondaryColor", "fontFamily"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "primaryColor": { "type": "string" },
+        "secondaryColor": { "type": "string" },
+        "fontFamily": { "type": "string" },
+        "isDark": { "type": "boolean" }
+      }
+    },
+
+    "User": {
+      "type": "object",
+      "properties": {
+        "_id": { "type": "string", "example": "65ab98765d014896dcd78933" },
+        "username": { "type": "string", "example": "john_doe" },
+        "email": { "type": "string", "example": "john@example.com" },
+        "fullName": { "type": "string", "example": "John Doe" },
+        "bio": { "type": "string", "example": "Software developer" },
+        "avatarUrl": { "type": "string", "example": "https://picsum.photos/200" }
+      }
+    },
+
+    "NewUser": {
+      "type": "object",
+      "required": ["username", "email"],
+      "properties": {
+        "username": { "type": "string" },
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "bio": { "type": "string" },
+        "avatarUrl": { "type": "string" }
+      }
+    }
+  }
+}
