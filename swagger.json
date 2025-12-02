@@ -5,7 +5,7 @@
     "description": "API for managing Themes and Users for a portfolio builder site.",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse41-final-project.onrender.com",
   "basePath": "/",
   "schemes": ["https"],
   "consumes": ["application/json"],
