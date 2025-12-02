@@ -78,8 +78,8 @@ body {
   display: inline-block;
   padding: 0.9rem 2rem;
   border-radius: 999px;
-  background: #f97316;
-  color: #111827;
+  background: #706e6cf1;
+  color: #d5d7dd;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
@@ -88,7 +88,7 @@ body {
 }
 
 .btn-primary:hover {
-  background: #fb923c;
+  background: #b11c09;
   transform: translateY(-2px);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
 }
