@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Portfolio Builder API",
-    "description": "API for managing Themes, Users, Projects, and Skills with OAuth protected routes.",
+    "description": "API for managing Themes, Users, Projects, and Skills with OAuth protection.",
     "version": "1.0.0"
   },
 
@@ -17,7 +17,7 @@
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
-      "description": "Use: Authorization: Bearer <token>"
+      "description": "Use Authorization: Bearer <token>"
     }
   },
 
@@ -41,6 +41,7 @@
           "500": { "description": "Internal Server Error" }
         }
       },
+
       "post": {
         "tags": ["Themes"],
         "summary": "Create a new theme (Protected)",
@@ -60,8 +61,10 @@
     "/api/themes/{id}": {
       "get": {
         "tags": ["Themes"],
-        "summary": "Get a theme by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Get theme by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
         "responses": {
           "200": { "description": "Theme found", "schema": { "$ref": "#/definitions/Theme" } },
           "400": { "description": "Invalid ID" },
@@ -69,9 +72,10 @@
           "500": { "description": "Internal Server Error" }
         }
       },
+
       "put": {
         "tags": ["Themes"],
-        "summary": "Update an existing theme (Protected)",
+        "summary": "Update theme (Protected)",
         "security": [{ "ApiKeyAuth": [] }],
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
@@ -79,40 +83,43 @@
         ],
         "responses": {
           "200": { "description": "Theme updated", "schema": { "$ref": "#/definitions/Theme" } },
-          "400": { "description": "Validation failed" },
+          "400": { "description": "Validation error" },
           "401": { "description": "Unauthorized" },
           "404": { "description": "Theme not found" },
           "500": { "description": "Internal Server Error" }
         }
       },
+
       "delete": {
         "tags": ["Themes"],
-        "summary": "Delete a theme",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Delete theme",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
         "responses": {
           "200": { "description": "Theme deleted" },
-          "400": { "description": "Invalid ID" },
           "404": { "description": "Theme not found" },
           "500": { "description": "Internal Server Error" }
         }
       }
     },
 
+    
     "/api/users/": {
       "get": {
         "tags": ["Users"],
         "summary": "Get all users",
         "responses": {
           "200": {
-            "description": "List of all users",
+            "description": "List of users",
             "schema": { "type": "array", "items": { "$ref": "#/definitions/User" } }
-          },
-          "500": { "description": "Internal Server Error" }
+          }
         }
       },
+
       "post": {
         "tags": ["Users"],
-        "summary": "Create a new user (Protected)",
+        "summary": "Create user (Protected)",
         "security": [{ "ApiKeyAuth": [] }],
         "parameters": [
           { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/NewUser" } }
@@ -120,8 +127,7 @@
         "responses": {
           "201": { "description": "User created", "schema": { "$ref": "#/definitions/User" } },
           "400": { "description": "Validation failed" },
-          "401": { "description": "Unauthorized" },
-          "500": { "description": "Internal Server Error" }
+          "401": { "description": "Unauthorized" }
         }
       }
     },
@@ -129,57 +135,58 @@
     "/api/users/{id}": {
       "get": {
         "tags": ["Users"],
-        "summary": "Get a user by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Get user by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
         "responses": {
-          "200": { "description": "User found", "schema": { "$ref": "#/definitions/User" } },
-          "400": { "description": "Invalid ID" },
-          "404": { "description": "User not found" },
-          "500": { "description": "Internal Server Error" }
+          "200": { "description": "User found", "schema": { "$ref": "#/definitions/User" }},
+          "404": { "description": "User not found" }
         }
       },
+
       "put": {
         "tags": ["Users"],
-        "summary": "Update a user (Protected)",
+        "summary": "Update user (Protected)",
         "security": [{ "ApiKeyAuth": [] }],
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/NewUser" } }
         ],
         "responses": {
-          "200": { "description": "User updated", "schema": { "$ref": "#/definitions/User" } },
+          "200": { "description": "User updated", "schema": { "$ref": "#/definitions/User" }},
           "400": { "description": "Validation failed" },
           "401": { "description": "Unauthorized" },
-          "404": { "description": "User not found" },
-          "500": { "description": "Internal Server Error" }
+          "404": { "description": "User not found" }
         }
       },
+
       "delete": {
         "tags": ["Users"],
-        "summary": "Delete a user",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Delete user",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
         "responses": {
           "200": { "description": "User deleted" },
-          "400": { "description": "Invalid ID" },
-          "404": { "description": "User not found" },
-          "500": { "description": "Internal Server Error" }
+          "404": { "description": "User not found" }
         }
       }
     },
 
-
+   
     "/api/projects/": {
       "get": {
         "tags": ["Projects"],
         "summary": "Get all projects",
         "responses": {
           "200": {
-            "description": "List of all projects",
+            "description": "List of projects",
             "schema": { "type": "array", "items": { "$ref": "#/definitions/Project" } }
-          },
-          "500": { "description": "Internal Server Error" }
+          }
         }
       },
+
       "post": {
         "tags": ["Projects"],
         "summary": "Create a new project (Protected)",
@@ -190,8 +197,7 @@
         "responses": {
           "201": { "description": "Project created", "schema": { "$ref": "#/definitions/Project" } },
           "400": { "description": "Validation failed" },
-          "401": { "description": "Unauthorized" },
-          "500": { "description": "Internal Server Error" }
+          "401": { "description": "Unauthorized" }
         }
       }
     },
@@ -199,69 +205,66 @@
     "/api/projects/{id}": {
       "get": {
         "tags": ["Projects"],
-        "summary": "Get a project by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Get project by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
         "responses": {
-          "200": { "description": "Project found", "schema": { "$ref": "#/definitions/Project" } },
-          "400": { "description": "Invalid ID" },
-          "404": { "description": "Project not found" },
-          "500": { "description": "Internal Server Error" }
+          "200": { "description": "Project found", "schema": { "$ref": "#/definitions/Project" }},
+          "404": { "description": "Project not found" }
         }
       },
+
       "put": {
         "tags": ["Projects"],
-        "summary": "Update a project (Protected)",
+        "summary": "Update project (Protected)",
         "security": [{ "ApiKeyAuth": [] }],
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/NewProject" } }
         ],
         "responses": {
-          "200": { "description": "Project updated", "schema": { "$ref": "#/definitions/Project" } },
+          "200": { "description": "Project updated", "schema": { "$ref": "#/definitions/Project" }},
           "400": { "description": "Validation failed" },
           "401": { "description": "Unauthorized" },
-          "404": { "description": "Project not found" },
-          "500": { "description": "Internal Server Error" }
+          "404": { "description": "Project not found" }
         }
       },
+
       "delete": {
         "tags": ["Projects"],
-        "summary": "Delete a project",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Delete project",
         "responses": {
           "200": { "description": "Project deleted" },
-          "400": { "description": "Invalid ID" },
-          "404": { "description": "Project not found" },
-          "500": { "description": "Internal Server Error" }
+          "404": { "description": "Project not found" }
         }
       }
     },
 
-  
+
     "/api/skills/": {
       "get": {
         "tags": ["Skills"],
         "summary": "Get all skills",
         "responses": {
           "200": {
-            "description": "List of all skills",
-            "schema": { "type": "array", "items": { "$ref": "#/definitions/Skill" } }
-          },
-          "500": { "description": "Internal Server Error" }
+            "description": "List of skills",
+            "schema": { "type": "array", "items": { "$ref": "#/definitions/Skill" }}
+          }
         }
       },
+
       "post": {
         "tags": ["Skills"],
-        "summary": "Create a new skill (Protected)",
+        "summary": "Create new skill (Protected)",
         "security": [{ "ApiKeyAuth": [] }],
         "parameters": [
           { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/NewSkill" } }
         ],
         "responses": {
-          "201": { "description": "Skill created", "schema": { "$ref": "#/definitions/Skill" } },
+          "201": { "description": "Skill created", "schema": { "$ref": "#/definitions/Skill" }},
           "400": { "description": "Validation failed" },
-          "401": { "description": "Unauthorized" },
-          "500": { "description": "Internal Server Error" }
+          "401": { "description": "Unauthorized" }
         }
       }
     },
@@ -269,40 +272,38 @@
     "/api/skills/{id}": {
       "get": {
         "tags": ["Skills"],
-        "summary": "Get a skill by ID",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Get skill by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "string" }
+        ],
         "responses": {
-          "200": { "description": "Skill found", "schema": { "$ref": "#/definitions/Skill" } },
-          "400": { "description": "Invalid ID" },
-          "404": { "description": "Skill not found" },
-          "500": { "description": "Internal Server Error" }
+          "200": { "description": "Skill found", "schema": { "$ref": "#/definitions/Skill" }},
+          "404": { "description": "Skill not found" }
         }
       },
+
       "put": {
         "tags": ["Skills"],
-        "summary": "Update a skill (Protected)",
+        "summary": "Update skill (Protected)",
         "security": [{ "ApiKeyAuth": [] }],
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           { "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/NewSkill" } }
         ],
         "responses": {
-          "200": { "description": "Skill updated", "schema": { "$ref": "#/definitions/Skill" } },
-          "400": { "description": "Validation failed" },
+          "200": { "description": "Skill updated", "schema": { "$ref": "#/definitions/Skill" }},
+          "400": { "description": "Validation error" },
           "401": { "description": "Unauthorized" },
-          "404": { "description": "Skill not found" },
-          "500": { "description": "Internal Server Error" }
+          "404": { "description": "Skill not found" }
         }
       },
+
       "delete": {
         "tags": ["Skills"],
-        "summary": "Delete a skill",
-        "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+        "summary": "Delete skill",
         "responses": {
           "200": { "description": "Skill deleted" },
-          "400": { "description": "Invalid ID" },
-          "404": { "description": "Skill not found" },
-          "500": { "description": "Internal Server Error" }
+          "404": { "description": "Skill not found" }
         }
       }
     }
@@ -335,6 +336,7 @@
       }
     },
 
+ 
     "User": {
       "type": "object",
       "properties": {
@@ -359,6 +361,7 @@
       }
     },
 
+ 
     "Project": {
       "type": "object",
       "properties": {
@@ -368,42 +371,48 @@
         "imageUrl": { "type": "string" },
         "repoUrl": { "type": "string" },
         "liveUrl": { "type": "string" },
-        "techStack": { "type": "string" }
+        "techStack": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       }
     },
 
     "NewProject": {
       "type": "object",
-      "required": ["title"],
+      "required": ["title", "description", "imageUrl", "repoUrl", "techStack"],
       "properties": {
         "title": { "type": "string" },
         "description": { "type": "string" },
         "imageUrl": { "type": "string" },
         "repoUrl": { "type": "string" },
         "liveUrl": { "type": "string" },
-        "techStack": { "type": "string" }
+        "techStack": {
+          "type": "array",
+          "items": { "type": "string" },
+          "example": ["React", "Node.js", "MongoDB"]
+        }
       }
     },
 
+    
     "Skill": {
       "type": "object",
       "properties": {
         "_id": { "type": "string" },
         "name": { "type": "string" },
         "level": { "type": "string" },
-        "category": { "type": "string" },
-        "iconUrl": { "type": "string" }
+        "category": { "type": "string" }
       }
     },
 
     "NewSkill": {
       "type": "object",
-      "required": ["name"],
+      "required": ["name", "level"],
       "properties": {
         "name": { "type": "string" },
         "level": { "type": "string" },
-        "category": { "type": "string" },
-        "iconUrl": { "type": "string" }
+        "category": { "type": "string" }
       }
     }
   }
